@@ -24,8 +24,8 @@ int main()
 		{
 			if (input_ar[j] + input_ar[i] == m)
 				cnt++;
-			// else if (input_ar[j] +input_ar[i] < m)
-			// 	break;
+			else if (input_ar[j] +input_ar[i] < m)
+				break;
 		}
 	}
 	cout << cnt;
