@@ -1,31 +1,27 @@
-#include<iostream>
-#include<algorithm>
-#include<string>
-#include<vector>
-#include<stack>
-#include<queue>
-#include<utility>
-#include<string.h>
+#include <iostream>
+#include <cmath>
 
 using namespace std;
+typedef long long ll;
+int A,B,C;
 
-long long pow(long long a, long long b, long long c)
+ll p(ll x)
 {
-	if (b == 1) 
-		return a % c;
-	long long val = pow(a, b/2, c);
-	val = val *val % c;
-	if (b%2 == 0)
-		return val;
+	if (x == 1)
+		return (A%C);
+	ll k = p(x/2)%C;
+	if (x%2 == 0)
+		return (k * k % C);
 	else
-		return val *a % c;
+		return(k*k %C* A % C);
 }
+
 int main()
 {
-
-	ios :: sync_with_stdio(0);
+	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int a,b,c;
-	cin >> a >> b>> c;
-	cout << pow(a,b,c);
+	cout.tie(0);
+	cin >> A>> B>> C;
+	long long ret  = p(B);
+	cout << ret;
 }
