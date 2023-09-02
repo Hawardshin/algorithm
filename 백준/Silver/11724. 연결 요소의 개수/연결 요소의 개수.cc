@@ -9,7 +9,6 @@ void dfs(int start){
 			links[i][start] = 0;
 			links[start][i] = 0;
 			dfs(i);
-			dfs(start);
 		}
 	}
 }
@@ -37,14 +36,8 @@ int main(){
 		int bef = i - 1;
 		for(int j=i + 1; j <= N;j++){
 			if (links[i][j]){
-				links[i][j] = 0;
-				links[j][i] = 0;
 				dfs(i);
-				dfs(j);
-				if (bef != i){
-					bef = i;
-					ret++;
-				}
+				ret++;
 			}
 		}
 	}
