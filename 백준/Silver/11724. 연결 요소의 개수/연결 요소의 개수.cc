@@ -25,22 +25,25 @@ int main(){
 		cin >> a >>b;
 		links[a][b] = 1;
 		links[b][a] = 1;
-		if (!input[a])
+		if (!input[a]){
+			input[a] = 1;
 			cnt++;
-		if (!input[b])
+		}
+		if (!input[b]){
+			input[b] = 1;
 			cnt++;
-		input[a] = 1;
-		input[b] = 1;
+		}
 	}
+
 	for(int i=1;i <= N;i++){
-		int bef = i - 1;
 		for(int j=i + 1; j <= N;j++){
 			if (links[i][j]){
-				dfs(i);
 				ret++;
+				dfs(i);
 			}
 		}
 	}
 	ret += (N - cnt);
 	cout << ret<<"\n";
 }
+
