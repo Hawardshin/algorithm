@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <queue>
 #include <utility>
 #include <algorithm>
@@ -21,26 +20,22 @@ int n,m;
 
 const int dx[] = {0,1,0,-1};
 const int dy[] = {1,0,-1,0};
-int check_done(vector<vector<int>> ar)
-{
-	for (int i=0;i < n;i++)
-	{
-		for (int j=0; j < m;j++)
-		{
+
+
+bool check_done(vector<vector<int>> ar){
+	for (int i=0;i < n;i++){
+		for (int j=0; j < m;j++){
 			if (ar[i][j] != 0)
-				return(1);
+				return(true);
 		}
 	}
-	return (0);
+	return (false);
 }
 
-void	print(vector<vector<int>> ar)
-{
+void	print(vector<vector<int>> ar){
 	int cnt = 0;
-	for(int i=0; i < n; i++)
-	{
-		for (int j=0;j < m;j++)
-		{
+	for(int i=0; i < n; i++){
+		for (int j=0;j < m;j++){
 			if (ar[i][j] ==1)
 				cnt++;
 		}
@@ -48,37 +43,28 @@ void	print(vector<vector<int>> ar)
 	cout << cnt <<"\n";
 }
 
-void	map(vector<vector<int>> &arr)
-{
+void	map(vector<vector<int>> &arr){
 	vector<vector<int>> change = arr;
 	queue<pair<int,int>> Q;
 	int cnt =0;
-	while (check_done(change))
-	{
+	while (check_done(change)){
 		vector vis(n,vector<int>(m,0));
 		arr = change;
 		vis[0][0] = 1;
 		Q.push({0,0});
-		while (!Q.empty())
-		{
+		while (!Q.empty()){
 			auto it = Q.front();
 			Q.pop();
-			for (int k=0;k < 4;k++)
-			{
+			for (int k=0;k < 4;k++){
 				if (it.X +dx[k] < 0 || it.Y + dy[k]<0 ||it.X +dx[k] >=m || it.Y + dy[k] >= n)
-				{
-					// change[it.Y][it.X] = 0;
 					continue;
-				}
 				if (vis[it.Y + dy[k]][it.X +dx[k]] == 1)
 					continue;
-				if (arr[it.Y + dy[k]][it.X +dx[k]] == 1)
-				{
-					change[it.Y+dy[k]][it.X+dx[k]] = 0;
+				if (arr[it.Y + dy[k]][it.X +dx[k]] == 1){
+					change[it.Y+dy[k]][it.X+dx[k]] = false;
 					continue;
 				}
-
-				vis[it.Y + dy[k]][it.X +dx[k]]=1;
+				vis[it.Y + dy[k]][it.X +dx[k]]=true;
 				Q.push({it.Y+ dy[k], it.X+dx[k]});
 			}
 		}
@@ -95,13 +81,12 @@ int main()
 {
 	cin >> n >> m;
 	vector arr(n,vector<int>(m,0));
-	for (int i=0;i<n;i++)
-	{
-		for(int j=0;j <m;j++)
-		{
+	for (int i=0;i<n;i++){
+		for(int j=0;j <m;j++){
 			cin >>arr[i][j];
 		}
 	}
 	//모든 지도 돈다.
 	map(arr);
 }
+
