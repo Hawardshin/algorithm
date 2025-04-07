@@ -1,26 +1,23 @@
-# include <iostream>
-
+#include<iostream>
 using namespace std;
-int arr[100001];
-int sum[100001];
 int main(){
-	int N,M;
-	ios::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL); 
-	cin >> N >> M;
-	for (int i = 0; i < N; i++){
-		cin >> arr[i];
-		if (i == 0)
-			sum[0] = arr[0];
-		else 
-			sum[i] = sum[i - 1] + arr[i];
-	}
-	int r,l;
-	for (int i = 0; i < M; i++){
-		cin >> r >> l;
-		if (r == 1)
-			cout << sum[l - 1] << "\n";
-		else 
-			cout << sum[l - 1] -  sum[r - 2] << "\n"; 
-	}
+    ios::sync_with_stdio(false); cin.tie(0);
+    int n,m;
+    cin >> n >>m;
+    int ar[100001];
+    for(int i=0;i<n;i++){
+        cin >> ar[i];
+        if (i !=0)
+            ar[i] = ar[i]+ ar[i-1];
+    }
+    
+    int a,b;
+    for(int i=0;i<m;i++){
+        cin >>a >>b;
+        if (a == 1){
+            cout << ar[b-1] <<"\n";
+        }else{
+            cout <<ar[b-1] - ar[a-2] <<"\n";
+        }
+    }
 }
