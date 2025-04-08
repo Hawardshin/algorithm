@@ -1,32 +1,27 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-int N, M;
-int input[1025][1025];
-int line_sum[1025][1025];
 int main(){
-	cin.tie(NULL);
-	cout.tie(NULL);
-	ios::sync_with_stdio(0);
-	cin >> N >> M;
-	for (int i = 0; i < N; i++){
-		for (int j = 0; j < N; j++){
-			 cin >> input[i][j];
-			if (j == 0)
-				line_sum[i][j] = input[i][j];
-			else
-				line_sum[i][j] = line_sum[i][j - 1] + input[i][j];
-		}
-	}
-	int x1, x2, y1,y2;
-	for (int i = 0; i < M; i++){
-		cin >> x1 >>y1>> x2 >> y2;
-		int ret = 0;
-		for (int j = x1 - 1; j < x2; j++){
-			if (y1 > 1)
-				 ret += line_sum[j][y2 - 1] - line_sum[j][y1 - 2];
-			else
-				ret += line_sum[j][y2 - 1];
-		}
-		cout << ret << "\n";
-	}
+    int n,m;
+    ios::sync_with_stdio(0);cin.tie(0);
+    cin>> n>>m;
+    int arr[1025][1025];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>> arr[i][j];
+            if (j != 0)
+                arr[i][j] = arr[i][j] + arr[i][j-1];
+        }
+    }
+    int x1,y1,x2,y2;
+    int answer;
+    for(int i=0;i<m;i++){
+        answer = 0;
+        cin>>x1>>y1>>x2>>y2;
+        for(int j=x1-1;j<x2;j++){
+            answer += arr[j][y2-1];
+            if (y1 > 1)
+                answer-= arr[j][y1-2];
+        }
+        cout << answer << "\n";
+    }
 }
