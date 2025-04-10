@@ -16,7 +16,7 @@ int main(){
     string input;
     cin >> input;
     int L =0;
-    int R = p-1;
+    int R = p;
     int answer = 0;
     int cnt[4];//A,C,G,T
     for(int i=0;i<4;i++){
@@ -33,11 +33,10 @@ int main(){
         else if (input[i] == 'T')
             now[3]++;
     }
-    
-    while(R < s){
-        if (isOk(cnt,now))
-            answer++;
-        R++;
+    if (isOk(cnt,now))
+        answer++;
+    while(true){
+        
         if (R == s)
             break;
         if (input[R] == 'A')
@@ -56,7 +55,10 @@ int main(){
             now[2]--;
         else if (input[L] == 'T')
             now[3]--;
+        R++;
         L++;
+        if (isOk(cnt,now))
+            answer++;
     }
 
     cout << answer<<"\n";
