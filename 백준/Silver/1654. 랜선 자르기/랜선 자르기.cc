@@ -1,55 +1,43 @@
 #include<iostream>
+#include<vector>
 #include<algorithm>
-
 using namespace std;
 
-int check_result(int *input, int mid,int n,int k)
-{
-        int count =0;
-        for (int i = 0; i <k; i++)
-        {
-                count += input[i] / mid;
-        }
-        if (count < n)
-                return -1;
-        count =0;
-        for (int i =0; i < k; i++)
-        {
-                count += input[i]/(mid +1);
-        }
-        if (count <n)
-                return 1;
-        else
-                return 0;
+int calcAll(vector<int> &ar,long long n, long long len){
+
+    int ret =0;
+    for(int a: ar){
+        ret += (a/len);
+    }
+    if (ret < n)
+        return 1;
+    else if (ret > n)
+        return -1;
+    else
+        return 0;
 }
-int main()
-{
-        long long  k,n,mid;
-        cin >> k >> n;
-        int *input = new int[k];
-        for (int i =0; i < k; i++)
-        {
-                cin >> input[i];
+
+int main(){
+    int k,n;
+    cin >> k >> n;
+    vector<int> ar(k);
+    for(int i=0;i<k;i++){
+        cin >> ar[i];
+    }
+    long long left = 1;
+    long long right = 2147483647;
+    long long ret = 0;
+    while(true){
+        if (left > right)
+            break;
+        long long mid = (right +left)/2;
+        long long r = calcAll(ar,n,mid);
+        if (r <= 0){
+            ret = max(ret,mid);
+            left = mid+1;
+        }else if (r >= 0){
+            right = mid -1;
         }
-        sort(input ,input +k);
-        long long start = 1;
-        long long end = input [k -1];
-        while (start <= end)
-        {
-                mid = (start + end) / 2;
-                if (check_result(input,mid,n,k) == 1)
-                {
-                        cout << mid <<"\n";
-                        delete[] input;
-                        return (0);
-                }
-                else if (check_result(input, mid, n, k) == -1)
-                {
-                        end = mid - 1;
-                }
-                else
-                        start = mid + 1;
-        }
-        cout << mid << "\n";
-        delete[] input;
+    }
+    cout << ret <<"\n";
 }
